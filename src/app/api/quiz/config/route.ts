@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { verifySession } from "@/lib/auth";
 import { getQuizConfig, setQuizConfig } from "@/lib/quiz-config";
+import { deleteSubmissionsByChapterId } from "@/lib/quiz-submissions";
 
 export async function GET() {
   const cookieStore = await cookies();
@@ -43,6 +44,16 @@ export async function POST(request: Request) {
         }
       : undefined;
   const accessPassword = body.accessPassword !== undefined ? (typeof body.accessPassword === "string" ? body.accessPassword : "") : undefined;
+
+  // When starting a new test (new chapterId), clear previous test’s submissions so results don’t carry over.
+  if (chapterId !== undefined && chapterId.trim() !== "") {
+    const current = getQuizConfig();
+    const oldChapterId = current?.chapterId?.trim();
+    if (oldChapterId && oldChapterId !== chapterId.trim()) {
+      await deleteSubmissionsByChapterId(oldChapterId);
+    }
+  }
+
   const updated = setQuizConfig({
     ...(chapterId !== undefined && { chapterId }),
     ...(timeLimitMinutes !== undefined && !Number.isNaN(timeLimitMinutes) && { timeLimitMinutes }),

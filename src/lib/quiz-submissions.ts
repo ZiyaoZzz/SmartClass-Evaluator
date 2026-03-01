@@ -110,3 +110,9 @@ export async function getSubmissions(chapterId?: string): Promise<QuizSubmission
     })
   );
 }
+
+/** Remove all submissions for a chapter (e.g. when starting a new test so old results don’t carry over). */
+export async function deleteSubmissionsByChapterId(chapterId: string): Promise<void> {
+  if (!chapterId?.trim()) return;
+  await prisma.quizSubmission.deleteMany({ where: { chapterId: chapterId.trim() } });
+}

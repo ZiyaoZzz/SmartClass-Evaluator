@@ -10,7 +10,8 @@
     "build": "mkdir -p .data && prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "deploy": "DATABASE_URL=${DATABASE_URL:-file:./.data/submissions.db} npm run build && echo 'Build OK. Push to GitHub to deploy on Render.'"
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",
