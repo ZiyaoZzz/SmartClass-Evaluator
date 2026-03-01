@@ -1,0 +1,25 @@
+// SQLite database for quiz submissions
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model QuizSubmission {
+  id               String   @id @default(cuid())
+  studentName      String
+  score            Int
+  total            Int
+  correctCount     Int
+  answers          String   // JSON: Record<questionId, selectedIndex>
+  submittedAt      DateTime
+  durationSeconds  Int?
+  email            String?
+  chapterId        String?
+
+  @@index([chapterId])
+  @@index([submittedAt])
+}

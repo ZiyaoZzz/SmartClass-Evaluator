@@ -1,0 +1,9 @@
+# Render Blueprint - optional; Render auto-detects Next.js if this is omitted.
+# Use this for explicit build/start or to set env groups.
+services:
+  - type: web
+    name: smartclass-evaluator
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    # Add env vars in Render Dashboard: AUTH_SECRET, ADMIN_USERNAME, ADMIN_PASSWORD, DATABASE_URL (e.g. file:./.data/submissions.db)

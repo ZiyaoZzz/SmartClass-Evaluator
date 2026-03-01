@@ -1,0 +1,6 @@
+question,A,B,C,D,correct
+What is the time complexity of binary search on a sorted array?,O(n),O(log n),O(n²),O(1),B
+Which data structure uses LIFO ordering?,Queue,Stack,Array,Linked List,B
+In React which hook is used for side effects?,useState,useEffect,useContext,useMemo,B
+What does HTTP stand for?,HyperText Transfer Protocol,High Transfer Text Protocol,Hyperlink Transfer Protocol,Host To Text Protocol,A
+Which is NOT a primitive type in JavaScript?,string,number,object,boolean,C
